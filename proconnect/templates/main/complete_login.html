@@ -1,0 +1,68 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}
+Sign In - Proconnect
+{% endblock %}
+
+{% block body %}
+<!-- loader Start -->
+<div id="loading">
+    <div id="loading-center"></div>
+</div>
+<style>
+    .form {
+        font-weight: bolder;
+    }
+</style>
+
+    <!-- loader END -->
+    
+      <div class="wrapper">
+    <section class="sign-in-page">
+        <div id="container-inside">
+            <div id="circle-small"></div>
+            <div id="circle-medium"></div>
+            <div id="circle-large"></div>
+            <div id="circle-xlarge"></div>
+            <div id="circle-xxlarge"></div>
+        </div>
+        <div class="container">
+                <div class="col-md-6">
+                    <div class="sign-in-from">
+                        <h1 class="mb">Complete Profile creation</h1>
+                        <form class="mt-4">
+                            <div class="form-group">
+                                <label class="form-label" for="exampleInputEmail1">Your Full Name</label>
+                                <input type="email" class="form-control mb-0" id="exampleInputEmail1" placeholder="Your Full Name">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="exampleInputPassword1">Password</label>
+                                <input type="password" class="form-control mb-0" id="exampleInputPassword1" placeholder="Password">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="exampleInputPassword1">Password</label>
+                                <input type="password" class="form-control mb-0" id="exampleInputPassword1" placeholder="Re-Enter Password">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="exampleInputDOB">Date of Birth</label>
+                                <input type="date" name="dob" class="form-control mb-0" id="exampleInputDOB" placeholder="Date of Birth" required>
+                            </div>
+                            <div class="d-inline-block w-100">
+                                <div class="form-check d-inline-block mt-2 pt-1">
+                                    <input type="checkbox" class="form-check-input" id="customCheck1">
+                                    <label class="form-check-label" for="customCheck1">I accept <a href="#">Terms and Conditions</a></label>
+                                </div>
+                                <button type="submit" class="btn btn-primary float-end">Sign Up</button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+      </div>
+      </body>
+      {% endblock %}
+</html>

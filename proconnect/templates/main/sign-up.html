@@ -1,0 +1,171 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}
+Sign In - Proconnect
+{% endblock %}
+
+{% block body %}
+<style>
+    .login-with-google-btn {
+        transition: background-color .3s, box-shadow .3s;
+        padding: 12px 16px 12px 42px;
+        border: none;
+        border-radius: 3px;
+        box-shadow: 0 -1px 0 rgba(0, 0, 0, .04), 0 1px 1px rgba(0, 0, 0, .25);
+        color: #757575;
+        font-size: 14px;
+        font-weight: 500;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNMTcuNiA5LjJsLS4xLTEuOEg5djMuNGg0LjhDMTMuNiAxMiAxMyAxMyAxMiAxMy42djIuMmgzYTguOCA4LjggMCAwIDAgMi42LTYuNnoiIGZpbGw9IiM0Mjg1RjQiIGZpbGwtcnVsZT0ibm9uemVybyIvPjxwYXRoIGQ9Ik05IDE4YzIuNCAwIDQuNS0uOCA2LTIuMmwtMy0yLjJhNS40IDUuNCAwIDAgMS04LTIuOUgxVjEzYTkgOSAwIDAgMCA4IDV6IiBmaWxsPSIjMzRBODUzIiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNNCAxMC43YTUuNCA1LjQgMCAwIDEgMC0zLjRWNUgxYTkgOSAwIDAgMCAwIDhsMy0yLjN6IiBmaWxsPSIjRkJCQzA1IiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNOSAzLjZjMS4zIDAgMi41LjQgMy40IDEuM0wxNSAyLjNBOSA5IDAgMCAwIDEgNWwzIDIuNGE1LjQgNS40IDAgMCAxIDUtMy43eiIgZmlsbD0iI0VBNDMzNSIgZmlsbC1ydWxlPSJub256ZXJvIi8+PHBhdGggZD0iTTAgMGgxOHYxOEgweiIvPjwvZz48L3N2Zz4=);
+        background-color: white;
+        background-repeat: no-repeat;
+        background-position: 12px 11px;
+    }
+
+    .login-with-google-btn:hover {
+        box-shadow: 0 -1px 0 rgba(0, 0, 0, .04), 0 2px 4px rgba(0, 0, 0, .25);
+    }
+
+    .login-with-google-btn:active {
+        background-color: #eeeeee;
+    }
+
+    .login-with-google-btn:focus {
+        outline: none;
+        box-shadow: 0 -1px 0 rgba(0, 0, 0, .04), 0 2px 4px rgba(0, 0, 0, .25), 0 0 0 3px #c8dafc;
+    }
+
+    .login-with-google-btn:disabled {
+        filter: grayscale(100%);
+        background-color: #ebebeb;
+        box-shadow: 0 -1px 0 rgba(0, 0, 0, .04), 0 1px 1px rgba(0, 0, 0, .25);
+        cursor: not-allowed;
+    }
+
+    .loginBtn--facebook {
+        background-color: #4C69BA;
+        background-image: linear-gradient(#4C69BA, #3B55A0);
+        text-shadow: 0 -1px 0 #354C8C;
+        padding: 12px 16px 12px 42px;
+        border: none;
+        border-radius: 3px;
+        color: white;
+        font-size: 14px;
+        font-weight: 500;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        background: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTAgMGgzMnYzMkgweiIgZmlsbD0ibm9uZSIvPgo8cGF0aCBkPSJNMTkuMjUzIDMyVjIwLjk0M0gzNC42MjhsLjUxNC00LjA3SDIuNjI1VjguNjA1aDcuMjg3VjRINC4yMTlDMi4xNjkgNCAwIDYuMTI5IDAgOC4zNDR2MTUuMzIxQzAgMjUuODczIDIuMTY5IDI4IDQuMjE5IDI4aDE2LjA0M3ptNC4yMTktMjhIMTguNTAydi41ODYtLjAxMmMtMy4wODggMC01LjEyOC0xLjYzNC01LjEyOC00LjEzOHYtLjAzYzAtMi4wNzEgMS42OTItMy41ODcgNC4xMjYtMy41ODdoLjAwN2MzLjAwNyAwIDQuNDAzLS40NDkgNS4xNTMtMS4xNDh2LTIuMjkzYy0xLjg2NS4zNzQtMy41MzMgMS4yMDUtNS4zMDYgMS4yMDVoLS4wMDdjLTQuMjY5IDAtNy4zMTctMy4yMjYtNy4zMTctNy4wMzl2LS4wMzdjMC00LjIwOCAzLjE2Ny03LjA0NyA3LjQxOC03LjA0N2gyLjkzNWM0LjE4OCAwIDYuNTE2IDEuMzEzIDcuMjYyIDMuNzVoLjAxM3YtMy41NTdoNy4yNzF2My41NDloLTMuMzQ3Yy0uNTIxIDAtMS4wNDYuNDQ3LTEuMTAzIDFhOC41NTggOC41NTggMCAwIDEgLjAwMyAxLjI2NWMwIC44NjEuMDE2IDEuNzEyLjAxNiAyLjQxNGgtLjAwN2MwIDQuMjkzLTIuNTU3IDYuNjU0LTYuMzc1IDYuNjU0aC0uMDAzYy0yLjg1NCAwLTQuNjItMS4wMTktNS4zMTYtMi40MWwuMDAyLjUyM2Mt=);
+    }
+
+    .loginBtn--facebook,
+    .loginBtn--facebook:focus {
+        background-color: #5B7BD5;
+        background-image: linear-gradient(#5B7BD5, #4864B1);
+    }
+
+    .iq-social-media {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .iq-social-media li {
+        display: inline-block;
+    }
+</style>
+
+<!-- loader Start -->
+<div id="loading">
+    <div id="loading-center"></div>
+</div>
+    <!-- loader END -->
+    
+      <div class="wrapper">
+    <section class="sign-in-page">
+        <div id="container-inside">
+            <div id="circle-small"></div>
+            <div id="circle-medium"></div>
+            <div id="circle-large"></div>
+            <div id="circle-xlarge"></div>
+            <div id="circle-xxlarge"></div>
+        </div>
+        <div class="container p-0">
+            <div class="row no-gutters">
+                <div class="col-md-6 text-center pt-5">
+                    <div class="sign-in-detail text-white">
+                        {% comment %} <a class="sign-in-logo mb-5" href="#"><img src="../assets/images/logo-full.png" class="img-fluid" alt="logo"></a> {% endcomment %}
+                        <div class="sign-slider overflow-hidden ">
+                            <ul  class="swiper-wrapper list-inline m-0 p-0 ">
+                                <li class="swiper-slide">
+                                    <img src="{% static 'assets/images/login/1.png' %}" class="img-fluid mb-4" alt="logo">
+                                    <h4 class="mb-1 text-white">Find new friends</h4>
+                                    <p>It is a long established fact that a reader will be distracted by the readable content.</p>
+                                </li>
+                                <li class="swiper-slide">
+                                    <img src="{% static 'assets/images/login/1.png' %}" class="img-fluid mb-4" alt="logo">
+                                    <h4 class="mb-1 text-white">Connect with the world</h4>
+                                    <p>It is a long established fact that a reader will be distracted by the readable content.</p>
+                                </li>
+                                <li class="swiper-slide">
+                                    <img src="{% static 'assets/images/login/1.png' %}" class="img-fluid mb-4" alt="logo">
+                                    <h4 class="mb-1 text-white">Create new events</h4>
+                                    <p>It is a long established fact that a reader will be distracted by the readable content.</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 bg-white pt-5 pt-5 pb-lg-0 pb-5">
+                    <div class="sign-in-from">
+                        <h1 class="mb-0">Sign Up</h1>
+                        <p>Enter your email address and password to access admin panel.</p>
+                        <form class="mt-4">
+                            <div class="form-group">
+                                <label class="form-label" for="exampleInputEmail1">Your Full Name</label>
+                                <input type="email" class="form-control mb-0" id="exampleInputEmail1" placeholder="Your Full Name">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="exampleInputEmail2">Email address</label>
+                                <input type="email" class="form-control mb-0" id="exampleInputEmail2" placeholder="Enter email">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="exampleInputPassword1">Password</label>
+                                <input type="password" class="form-control mb-0" id="exampleInputPassword1" placeholder="Password">
+                            </div>
+                            <div class="d-inline-block w-100">
+                                <div class="form-check d-inline-block mt-2 pt-1">
+                                    <input type="checkbox" class="form-check-input" id="customCheck1">
+                                    <label class="form-check-label" for="customCheck1">I accept <a href="#">Terms and Conditions</a></label>
+                                </div>
+                                <button type="submit" class="btn btn-primary float-end">Sign Up</button>
+                            </div>
+                            <div class="sign-info">
+                                <span class="dark-color d-inline-block line-height-2">Already Have Account ? <a href="sign-in.html">Log In</a></span>
+                                <ul class="iq-social-media">
+
+                                    <li>
+                                        <button type="button" class="login-with-google-btn" onclick="window.location.href='{% url 'social:begin' 'google-oauth2' %}'">
+                                            Sign in with Google
+                                        </button>
+                                    </li>
+                                    
+                                    <li>
+                                        <button type="button" class="loginBtn loginBtn--facebook" onclick="window.location.href='{% url 'social:begin' 'facebook' %}'">
+                                            Login with Facebook
+                                        </button>
+                                    </li>
+                                    
+                                </ul>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+      </div>
+      </body>
+      {% endblock %}
+</html>
